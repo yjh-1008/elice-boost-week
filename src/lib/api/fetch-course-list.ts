@@ -1,7 +1,19 @@
 import type {OrgCourseListResponses} from '@/types';
-export default async function fetchBooks({offset, count}: {offset: number, count: number}):Promise<OrgCourseListResponses> {
-  console.log(offset, count);
-  const url = `https://api-rest.elice.io/org/academy/course/list/?landing_section_course_id=10391&offset=${offset}&count=${count}`;
+
+//: {"$and":[{"title":"%%"},{"$or":[{"status":2},{"status":3},{"status":4}]},{"$or":[{"enroll_type":0,"is_free":false}]},{"is_datetime_enrollable":true}]}
+export default async function fetchBooks(query: URLSearchParams):Promise<OrgCourseListResponses> {
+  console.log(query);
+  const title = query.get('keyword');
+  const price = query.getAll('price').map((param) => {
+    return { enroll_type: 0, is_free: param === 'free' ? true : false };
+  });
+  console.log(title)
+  const filter_conditions = JSON.stringify({
+    $and: [{ title: `%${title ? title : ''}%` }, { $or: price }],
+  });
+
+  const url = `https://api-rest.elice.io/org/academy/course/list/?filter_conditions=${filter_conditions}&offset=${query.get('offset')}&count=${query.get('count')}`;
+
   try {
     const response = await fetch(url, {method: "GET", next: {revalidate:5}})
     if(!response.ok) {

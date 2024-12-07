@@ -14,6 +14,7 @@ const PaginationContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 8px;
+  margin-top: 1.5rem;
 `;
 
 const PageNumber = styled.button<{ isActive?: boolean }>`
@@ -80,10 +81,11 @@ export default function Pagination({ total, displaySize = 5 }: PaginationProps) 
   useEffect(() => {
     setTotalPages(Math.ceil(total / displaySize));
     setCurrentGroup(Math.ceil(currentPage / displaySize));
-  }, [total]);
+  }, [total, currentPage, displaySize]);
 
   const renderPageNumbers = () => {
     const pages = [];
+    console.log(currentGroup, totalPages, currentPage/displaySize);
     let startPage = ((currentGroup -1) * displaySize) + 1;
     let endPage = Math.min(currentGroup * displaySize, totalPages);
     // 시작 페이지 조정

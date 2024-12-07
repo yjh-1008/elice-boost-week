@@ -11,7 +11,7 @@ const Container = styled.div`
 export default function CourseCardContainer({courseList}: {courseList: Course[]}) {
   return <Container>
     {courseList.map((course) => {
-      return <CourseCard key={course.title} course={course} />
+      return <CourseCard key={course.id} course={course} />
     })}
   </Container>
 }

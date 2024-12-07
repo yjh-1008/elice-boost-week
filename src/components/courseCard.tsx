@@ -115,6 +115,7 @@ export default function CourseCard({ course }: CourseCardProps) {
                 alt={`${course.title} 로고`}
                 width={52}
                 height={52}
+                loading="lazy"
                 data-testid="course-logo"
               />
             </LogoWrapper> 

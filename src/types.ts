@@ -6,6 +6,7 @@ export interface OrgCourseListResponses {
 }
 
 export interface Course {
+  id: number;
   course_type: number;
   tags: string[];
   title: string;
@@ -24,4 +25,9 @@ export interface Course {
   price_usd: string;
   enroll_type: number;
   is_free: boolean;
+}
+
+export interface ChipFilter {
+  name: string;
+  value: string;
 }

@@ -40,9 +40,8 @@ const SearchIcon = styled(FontAwesomeIcon)`
 
 export default function SearchArea() {
   const router = useRouter();  
-  const [searchText, setSearchText] = useState<Nullish<string>>(router.query.searchWord as Nullish<string>);
+  const [searchText, setSearchText] = useState<Nullish<string>>(router.query.keyword as Nullish<string>);
   const debouncedSearchWord = useDebounce(searchText, 3000);
-  //TODO ... debounce 처리
 
   //useEffect를 통해 SearchParam에 값이 없다면 초기값을 설정해준다.
   useEffect(() => {
@@ -52,10 +51,19 @@ export default function SearchArea() {
   }, [searchText]);
 
   useEffect(() => {
+    if(debouncedSearchWord) {
     router.push({
       pathname: router.pathname,
-      query: { ...router.query, searchWord: debouncedSearchWord },
-    }, undefined, { shallow: true });
+        query: { ...router.query, keyword: debouncedSearchWord },
+      });
+    } else {
+      const query = {...router.query};
+      delete query.keyword;
+      router.push({
+        pathname: router.pathname,
+        query,
+      });
+    }
   }, [debouncedSearchWord]);
 
   return (
