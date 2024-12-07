@@ -54,15 +54,27 @@ export default function Pagination({ total, displaySize = 5 }: PaginationProps) 
   const [totalPages, setTotalPages] = useState<number>(total);
   const [currentGroup, setCurrentGroup] = useState<number>(1);
   const handlePageChange = (page: number) => {
-    if (page < 1 || page > totalPages) return;
-    router.push({
-      pathname: router.pathname,
-      query: {
-        ...router.query,
-        offset: page,
-        count: 20
-      }
-    });
+
+    if (page < 1 || page > totalPages)  {
+      router.push({
+        pathname: router.pathname,
+        query: {
+          ...router.query,
+          offset: 1,
+          count: 20
+        }
+      });
+    } else {
+      router.push({
+        pathname: router.pathname,
+        query: {
+          ...router.query,
+          offset: page,
+          count: 20
+        }
+      });
+    }
+
   };
 
   useEffect(() => {
