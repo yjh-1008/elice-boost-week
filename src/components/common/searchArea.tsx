@@ -4,9 +4,11 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 import type { Nullish } from '@/types.ts';
 import React from 'react';
+import useDebounce from '@/hooks/useDebounce';
+
 const Container = styled.section`
   display: flex;
   align-items: center;
@@ -37,9 +39,9 @@ const SearchIcon = styled(FontAwesomeIcon)`
 `;
 
 export default function SearchArea() {
-  const searchParams = useSearchParams();  
-  const [searchText, setSearchText] = useState<string | null>(searchParams.get('searchWord') || '');
-
+  const router = useRouter();  
+  const [searchText, setSearchText] = useState<Nullish<string>>(router.query.searchWord as Nullish<string>);
+  const debouncedSearchWord = useDebounce(searchText, 3);
   //TODO ... debounce 처리
 
   //useEffect를 통해 SearchParam에 값이 없다면 초기값을 설정해준다.
@@ -48,6 +50,22 @@ export default function SearchArea() {
       setSearchText('');
     }
   }, [searchText]);
+
+  useEffect(() => {
+    if (debouncedSearchWord) {
+      router.push({
+        pathname: router.pathname,
+        query: { ...router.query, searchWord: debouncedSearchWord },
+      }, undefined, { shallow: true });
+    } else {
+      const query = { ...router.query };
+      delete query.searchWord;
+      router.push({
+        pathname: router.pathname,
+        query
+      }, undefined, { shallow: true });
+    }
+  }, [debouncedSearchWord, router]);
 
   return (
     <Container>

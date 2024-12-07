@@ -17,11 +17,8 @@ interface LayoutProps {
   
 export default function GlobalLayout({ children }: LayoutProps) {
   return (
-    <div>
-      <Header />
-      <Container>
-        {children}
-      </Container>
-    </div>
+    <Container>
+      {children}
+    </Container>
   );
 }

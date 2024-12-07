@@ -1,19 +1,19 @@
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import SearchArea from '../../src/components/common/SearchArea';
 import '@testing-library/jest-dom';
 import { describe, it, jest, beforeEach, expect } from '@jest/globals';
 
-jest.mock('next/navigation', () => ({
-  useSearchParams: () => ({
-    get: jest.fn().mockImplementation((param) => {
-      if (param === 'searchWord') {
-        return 'searchText';
-      }
-      return null;
-    })
-  })
-}));
+// jest.mock('next/navigation', () => ({
+//   useSearchParams: () => ({
+//     get: jest.fn().mockImplementation((param) => {
+//       if (param === 'searchWord') {
+//         return 'searchText';
+//       }
+//       return null;
+//     })
+//   })
+// }));
 
 describe('SearchArea 컴포넌트', () => {
   const mockOnSearch = jest.fn();
@@ -38,6 +38,6 @@ describe('SearchArea 컴포넌트', () => {
     const searchInput = await screen.findByTestId('search-input');
     fireEvent.change(searchInput, { target: { value: 'searchText' } });
     //then
-    expect(searchInput).toHaveValue('searchText');
+    await waitFor(() => expect(searchInput).toHaveValue('searchText'));
   });
 });
