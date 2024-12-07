@@ -5,6 +5,14 @@ const nextConfig: NextConfig = {
   compiler: {
     styledComponents: true,
   },
+  async rewrites() {
+    return [
+      {
+        source: '/academy/:path*',
+        destination: 'https://api-rest.elice.io/:academy*',
+      },
+    ];
+  },
   reactStrictMode: true,
 };
 
