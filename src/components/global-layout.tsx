@@ -10,6 +10,9 @@ const Container = styled.div`
     max-width: 100%;
   }
 `;
+const HeaderContainer = styled.div`
+  max-width: 100vw;
+`;
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -17,8 +20,9 @@ interface LayoutProps {
   
 export default function GlobalLayout({ children }: LayoutProps) {
   return (
-    <Container>
-      {children}
-    </Container>
+    <HeaderContainer>
+      <Header />
+      <Container> {children} </Container>
+    </HeaderContainer>
   );
 }
