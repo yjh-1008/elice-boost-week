@@ -11,7 +11,7 @@ styled-components
 axios
 
 ## 폴더 구조
-
+```
 src
 ├── components
 │ ├── common
@@ -29,7 +29,7 @@ src
 │ └── searchParamGenerator.ts
 └── pages
 └── index.tsx
-
+```
 ## 디렉토리 구조
 
 1. components/
