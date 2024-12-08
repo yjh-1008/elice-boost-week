@@ -12,20 +12,22 @@ axios
 
 ## 폴더 구조
 
-src/
-├── components/
-│ ├── common/
+src
+├── components
+│ ├── common
 │ │ ├── SearchArea.tsx
 │ │ ├── Pagination.tsx
 │ │ └── ...
-│ ├── courseCardContainer/
-│ └── chipFilter/
-├── lib/
-│ ├── api/
+│ ├── courseCardContainer
+│ │ └── index.tsx
+│ └── chipFilter
+│ └── index.tsx
+├── lib
+│ ├── api
 │ │ └── fetch-course-list.ts
-│ └── utils/
+│ └── utils
 │ └── searchParamGenerator.ts
-└── pages/
+└── pages
 └── index.tsx
 
 ## 디렉토리 구조
