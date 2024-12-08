@@ -54,11 +54,12 @@ export default function SearchArea() {
     if(debouncedSearchWord) {
     router.push({
       pathname: router.pathname,
-        query: { ...router.query, keyword: debouncedSearchWord },
+        query: { ...router.query, offset:1, keyword: debouncedSearchWord },
       });
     } else {
       const query = {...router.query};
       delete query.keyword;
+      query.offset = 1;
       router.push({
         pathname: router.pathname,
         query,
