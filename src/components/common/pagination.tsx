@@ -85,7 +85,6 @@ export default function Pagination({ total, displaySize = 5 }: PaginationProps) 
 
   const renderPageNumbers = () => {
     const pages = [];
-    console.log(currentGroup, totalPages, currentPage/displaySize);
     let startPage = ((currentGroup -1) * displaySize) + 1;
     let endPage = Math.min(currentGroup * displaySize, totalPages);
     // 시작 페이지 조정

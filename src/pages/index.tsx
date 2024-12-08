@@ -1,4 +1,4 @@
-import SearchArea from "@/components/common/searchArea";
+import SearchArea from "@/components/common/SearchArea";
 import Pagination from "@/components/common/pagination";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import fetchCourseList from "@/lib/api/fetch-course-list";
@@ -10,7 +10,9 @@ import ChipFilter from "@/components/chipFilter";
 import searchParamGenerator from "@/lib/utils/searchParamGenerator";
 const Main = styled.main`
   padding: 20px;
-  overflow-y: auto
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
 `;
 
 const TotalCount = styled.div`
@@ -22,7 +24,6 @@ const TotalCount = styled.div`
 `;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  // const {offset, count, ...rest} = context.query;  
   const params = searchParamGenerator(context.query as Record<string, string|string[]>);
   const courseList = await fetchCourseList(params);
   return {
@@ -35,7 +36,6 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
 
 export default function Home({courseList}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  console.log(courseList);
   const router = useRouter();
   useEffect(() => {
     if(router.query.offset === undefined || router.query.count === undefined) {
@@ -56,7 +56,7 @@ export default function Home({courseList}: InferGetServerSidePropsType<typeof ge
   return (
     <Main> 
         <SearchArea />
-        <ChipFilter category="price" chipList={CHIP_LIST} />
+        <ChipFilter title="가격" category="price" chipList={CHIP_LIST} />
         <TotalCount>전체 {courseList?.course_count}개</TotalCount >
         <CourseCardContainer courseList={courseList?.courses ?? []} />
         <Pagination total={courseList?.course_count ?? 1} displaySize={5} />

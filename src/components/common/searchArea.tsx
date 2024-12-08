@@ -68,7 +68,7 @@ export default function SearchArea() {
 
   return (
     <Container>
-      <SearchIcon icon={faSearch} data-testid="search-icon" />  
+      <SearchIcon icon={faSearch} data-testid="icon-search" />  
       <SearchInput placeholder="배우고 싶은 언어, 기술을 검색해 보세요" value={searchText || ''} onChange={(e) => setSearchText(e.target.value)} data-testid="search-input" />
     </Container>
   );

@@ -62,6 +62,7 @@ const Logo = styled.img`
 
 const LogoWrapper = styled.div`
   height: 52px;
+  width: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -116,7 +117,7 @@ export default function CourseCard({ course }: CourseCardProps) {
                 width={52}
                 height={52}
                 loading="lazy"
-                data-testid="course-logo"
+                 data-testid="course-logo"
               />
             </LogoWrapper> 
             )}

@@ -2,12 +2,10 @@ import type {OrgCourseListResponses} from '@/types';
 
 //: {"$and":[{"title":"%%"},{"$or":[{"status":2},{"status":3},{"status":4}]},{"$or":[{"enroll_type":0,"is_free":false}]},{"is_datetime_enrollable":true}]}
 export default async function fetchBooks(query: URLSearchParams):Promise<OrgCourseListResponses> {
-  console.log(query);
   const title = query.get('keyword');
   const price = query.getAll('price').map((param) => {
     return { enroll_type: 0, is_free: param === 'free' ? true : false };
   });
-  console.log(title)
   const filter_conditions = JSON.stringify({
     $and: [{ title: `%${title ? title : ''}%` }, { $or: price }],
   });
@@ -22,7 +20,6 @@ export default async function fetchBooks(query: URLSearchParams):Promise<OrgCour
 
     return await response.json();
   }catch(err) {
-    console.log(err);
     return {
       courses: [],
       course_count: 0,

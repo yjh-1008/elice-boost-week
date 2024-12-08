@@ -30,7 +30,6 @@ export default function Chip({name, value, category}: ChipFilter & {name: string
       const newValues = categoryValue.filter((item) => !item || item !== type);
       router.push({pathname: router.pathname, query: {...router.query, [category]: newValues}})
     } else {
-      console.log(type, categoryValue)
       if(categoryValue.length === 0) {
         delete query[category];
         router.push({pathname: router.pathname, query: {...router.query, [category]: [type]}})
